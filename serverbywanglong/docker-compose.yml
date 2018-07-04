@@ -1,0 +1,69 @@
+version: '3'
+services:
+  api:
+    image: md-api:latest
+    container_name: api
+    external_links:
+      - redis:redis
+      - mysql:mysql
+      - es:es
+      - rabbit:rabbit
+    volumes:
+      - /data/logs:/data/logs
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: always
+    networks:
+      - server_mdnet
+
+
+  broker:
+    image: md-broker:latest
+    container_name: broker
+    external_links:
+      - redis:redis
+      - mysql:mysql
+      - es:es
+      - rabbit:rabbit
+    volumes:
+      - /data/logs:/data/logs
+    ports:
+      - "127.0.0.1:8082:8082"
+    restart: always
+    networks:
+      - server_mdnet
+
+
+  notifier:
+    image: md-notifier:latest
+    container_name: notifier
+    external_links:
+      - rabbit:rabbit
+    volumes:
+      - /data/logs:/data/logs
+    ports:
+      - "127.0.0.1:8081:8081"
+    restart: always
+    networks:
+      - server_mdnet
+
+  job:
+    image: md-job:latest
+    container_name: job
+    external_links:
+      - redis:redis
+      - mysql:mysql
+      - es:es
+      - rabbit:rabbit
+    volumes:
+      - /data/logs:/data/logs
+    ports:
+      - "127.0.0.1:8085:8085"
+    restart: always
+    networks:
+      - server_mdnet
+
+
+networks:
+  server_mdnet:
+    external: true

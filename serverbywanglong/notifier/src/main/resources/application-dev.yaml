@@ -1,0 +1,31 @@
+logging:
+  config: classpath:log4j2-spring.xml
+spring:
+  messages:
+    sms:
+      account: 8SDK-EMY-6699-SCVLP
+      password: 557216
+      api-url: http://hprpt2.eucp.b2m.cn:8080/sdkproxy/sendsms.action
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: power
+    password: 123456
+    virtual-host: /power
+    cache:
+      channel:
+        size: 50
+  mail:
+    host: smtp.exmail.qq.com
+    port: 465
+    username: noreply@modianli.com
+    password: GADraukfenObod7
+    protocol: smtps
+    properties:
+      mail.debug: false
+      mail.from: noreply@modianli.com
+      mail.smtp.timeout: 25000
+
+
+server:
+  port: 8081

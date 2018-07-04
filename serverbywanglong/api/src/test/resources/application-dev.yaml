@@ -1,0 +1,56 @@
+logging:
+  config: classpath:log4j2-spring.xml
+spring.datasource.config:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/power?useUnicode=true&characterEncoding=utf8&useSSL=false
+  username: root
+  password: 123456
+spring:
+  redis:
+    host: localhost
+    password: test123
+    port: 6379
+  qiniu:
+    accessKey: cWQQu7Zc4tjc9bQNniZwwMdGaCfiyVu3GLOiVOeW
+    secretKey: xu10EpPjbjHFnpo48qu7Rw2MB5hRd2i3soS7kaHK
+    bucket: modian-test
+    callbackUrl: http://modian.tunnel.qydev.com/api/public/qiniu/upload/callback
+    resourceUrl: http://static-test.modianli.com/
+  datasource:
+    url: jdbc:mysql://localhost:3306/power?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    type: org.apache.commons.dbcp.BasicDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate.format_sql: false
+      hibernate.show_sql: false
+      hibernate.hbm2ddl.auto: update
+      hibernate.dialect: org.hibernate.dialect.MySQL57InnoDBDialect
+    database-platform: MYSQL
+  data:
+    elasticsearch:
+      cluster-nodes: 127.0.0.1:9300
+      cluster-name: elasticsearch
+      properties:
+        http.enabled: true
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: power
+    password: 123456
+    virtual-host: /power
+    cache:
+      channel:
+        size: 50
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+
+modian:
+  url: http://portal-test.modianli.com:88/
+  localhost: http://localhost:8080/

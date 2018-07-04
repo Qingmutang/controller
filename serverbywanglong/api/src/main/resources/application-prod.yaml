@@ -1,0 +1,63 @@
+logging:
+  config: classpath:log4j2-file.xml
+spring:
+  redis:
+    host: redis
+    password: test123
+    port: 6379
+  qiniu:
+    accessKey: 1zqE67FnBPlDzEvciUWWNNyDcWpv3NV476LeBb_n
+    secretKey: Jb6LX5G32bIuIhP27kw6ZIFapO6FukMIwmUiihkM
+    bucket: modian
+    callbackUrl: https://api.modianli.com/api/public/qiniu/upload/callback
+    resourceUrl: http://static.modianli.com/
+  datasource:
+    url: jdbc:mysql://mysql:3306/power?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: power
+    password: modianpower
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  jpa:
+    properties:
+      hibernate.format_sql: false
+      hibernate.show_sql: false
+      hibernate.hbm2ddl.auto: update
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    database: mysql
+  data:
+    elasticsearch:
+      cluster-nodes: es:9300
+      cluster-name: elasticsearch
+      properties:
+        http.enabled: true
+  rabbitmq:
+    host: rabbit
+    port: 5672
+    username: power
+    password: 123456
+    virtual-host: /power
+    cache:
+      channel:
+        size: 50
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+
+modian:
+  url: https://www.modianli.com/
+
+power:
+  payment:
+    alipay:
+      partner: 2088721060884721
+      privateKey: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCmFUqi9a8PJL29Z4usz3BIGGbhVCMbOCn0DVM807V+e3Pe7GGmfHTvnj667BBLSvlOepGDV//TIIadMNyxghbGPKbrKfBGVMGB35hHoxxljlKOpnUlvyQpSpBGE+DXf1yMyKCFNHn72XTlNnC0TdXdkWrAiG+ilq9g9cfhVeAydRRYm3RPLVufY974NSbCFvH6vPh3JGmsdLDgmeyLxXYnNvP7cnDNIlBUqLiLW5+8ogH6kiRFYxQfZw08zeIZ/LABDWPi37rU6uQZiprc/WL7T1esjz2UT8DTAq5QNblb+Xw3NpzMTs4IGktOqu3TuYK7CPyaUYMrJnMXdsErV7P7AgMBAAECggEAB29wlfcVzUHB1Nbr4+Ktjiy5fmD76V4MUsa98T0xJOZ1+4btoDx2J7wX5tpmqFhE7QSDuzOXWmZcYHEtkCzYxCs29dQ804k72IqgEKT2wn0qqQQ+vl/eSJLz/o8pQ7yJ8iuRNCVzSJklqJVVWl0Zs/+snc394XOJine2aRolHV0aAZ1JCYenOFYcS9IcmCDaq38SCb+SV4I7LhMRTd+EGFyCHSNoAdJ/XquDvHGVVSFFNECBNyuG0ol/jW3kBVUXGDhP24aDS1QqDnwVurnDvytP3/tTwNWyWZ7ROzVoqtEJIx0flexxf5J7mAIHCW1z01HEIuvp+Kkgb3ZEQXr18QKBgQDUWXcxq8kBxKOmMPpdxUo+eq2rLsikpPXz1CKqUmA8D7/z9VyQcZIH1F76EVB3oa8gT4EbYwZoXHX6SRzrntkWCuJR2TrW3Qbhezumcb/XmvcL8QOFf641jhZFuWqtjBxAQPyUYMVI/bNkrHEBpiKYViHaqmaBVaQzar0lc//FNwKBgQDIOSOuEAyCVzteIOPYUrRgDk39dkmc+SK2vWSkCjUQ60MhYp2Kvh2HZVZF5Zk5UbDjoSUmOsWMsaM8k++oi3IXfc+fZsxB3cMVDzOJ5k+m3eWN7pIy6yWKoXvz16dIhTOeXruhMh9LzSbuGDmoKxqO4sHV95eD9xe0XiLcIYLpXQKBgGbgvU2UQ3sW0I4otnONrM2eU9tWfCDARuSNhwnrhPI0UzQXUHQugahHbIhMsSZ0b8sAmbUyAZ24BfRvTZKdz+DM/x7WVppYVQgS0zBtdZs4Wa4wYxtfY4BQyVuYXCWeduVuVrBwPcSCHVKN9OXunl4dhKNS4PySCE5czSyDCYx7AoGBAJ6DxkCvCghC4YiDB3+i8pS9nncVJ/BzuUztonjQb/TGHS6YMVu/agdgbi4GOQmNKDr+wDeE/hOGK1LxWCKay6fXfgGX1Awtcp4Am/AH+3WDZZK5lttjGSSo9kY1rIWYlyZBn9BdqzNK5xBG85a1EWCgG4+3Zige/pBYmsambUstAoGBAMQry/I7s3dYIZPpVSlWSTNJ1OpsSISYNODu+Qjp4SFh8EuP2ncSgZe634HDpr41dDiIJUxNL2jFuAwsLIAxYGfeVVxU8Lh7iBxDEso5zostwhE2rI3v+vMRXjcOZyvI5l82I7TRK8j6Kp5V+wwH6GyGncz5C0B1xyQT1vlTq1Vx
+      notifyUrl: https://api.modianli.com/api/public/orders/sync/verify
+      returnUrl: https://supplier.modianli.com/result

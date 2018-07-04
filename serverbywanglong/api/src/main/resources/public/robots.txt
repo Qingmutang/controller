@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /api/public/*
+Disallow: /api/*
+Disallow: /swagger-ui.html

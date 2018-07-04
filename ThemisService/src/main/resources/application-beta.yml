@@ -1,0 +1,79 @@
+spring:
+  profiles: beta
+  datasource:
+    druid:
+      web-stat-filter:
+        enabled: true
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+        url-pattern: "/*"
+      stat-view-servlet:
+        login-username: admin
+        login-password: adminto
+      username: admin_yuningwang
+      password: czbapp.com123
+      url: jdbc:mysql://121.40.141.221:3306/czb?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+      db-type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      filter:
+        stat:
+          enabled: true
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 2000
+        wall:
+          enabled: true
+          db-type: mysql
+          config:
+#            delete-allow: false
+#            drop-table-allow: false
+#        log4j2:
+#          enabled: false
+
+server:
+  context-path: /
+  port: 8888
+  tomcat:
+     uri-encoding: UTF-8
+     accept-count: 2000
+     max-threads: 1000
+     max-http-post-size: 20971520
+  session:
+     timeout: 600
+     cookie:
+      http-only: true
+http:
+  time-to-live: 20
+  max-total:  500
+  max-per-route: 500
+  connect-timeout: 3000
+  read-timeout: 5000
+  connection-request-timeout: 200 #连接不够用的等待时间，不宜过长
+  buffer-request-body: true
+
+mybatis-plus:
+  # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+  # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.czb.themis.base.entity
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 3
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"0
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    #refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+  configuration:
+    #配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+debug: true
+logging:
+  level:
+    com.czb.themis: trace
+    org.springframework.boot: debug

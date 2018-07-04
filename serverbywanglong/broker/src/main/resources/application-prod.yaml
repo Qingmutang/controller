@@ -1,0 +1,48 @@
+logging:
+  config: classpath:log4j2-file.xml
+spring:
+  rabbitmq:
+    host: rabbit
+    port: 5672
+    username: power
+    password: 123456
+    virtual-host: /power
+    cache:
+      channel:
+        size: 50
+  qiniu:
+    accessKey: 1zqE67FnBPlDzEvciUWWNNyDcWpv3NV476LeBb_n
+    secretKey: Jb6LX5G32bIuIhP27kw6ZIFapO6FukMIwmUiihkM
+    bucket: modian
+    callbackUrl: https://api.modianli.com/api/public/qiniu/upload/callback
+    resourceUrl: http://static.modianli.com/
+  datasource:
+    url: jdbc:mysql://mysql:3306/power?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: power
+    password: modianpower
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  jpa:
+    properties:
+      hibernate.format_sql: false
+      hibernate.show_sql: false
+      hibernate.hbm2ddl.auto: update
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    database: mysql
+  data:
+    elasticsearch:
+      cluster-nodes: es:9300
+      cluster-name: elasticsearch
+      properties:
+        http.enabled: true
+server:
+  port: 8082
+
+modian:
+  url: https://www.modianli.com/

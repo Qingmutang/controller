@@ -1,0 +1,89 @@
+version: '2'
+services:
+  mysql:
+    image: percona:latest
+    container_name: mysql
+    volumes:
+      - /data/docker/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=test123321
+    networks:
+      - mdnet
+
+
+  es:
+    image: elasticsearch:2.4-alpine
+    container_name: es
+    volumes:
+      - /data/docker/es/plugins:/usr/share/elasticsearch/plugins
+      - /data/docker/es/data:/usr/share/elasticsearch/data
+      - /data/docker/es/logs:/usr/share/elasticsearch/logs
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
+    restart: always
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=
+      -Des.http.cors.enabled=true
+      -Des.http.cors.allow-origin=*
+      "
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+    networks:
+      - mdnet
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server /usr/local/etc/redis/redis.conf --appendonly yes
+    volumes:
+      - /data/docker/redis:/data
+      - /data/docker/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - mdnet
+
+
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: rabbit
+    volumes:
+      - /data/docker/rabbit:/var/lib/rabbitmq
+    ports:
+      - "127.0.0.1:15672:15672"
+      - "127.0.0.1:5672:5672"
+    restart: always
+    hostname: my-rabbit
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    networks:
+      - mdnet
+
+
+  ssh:
+    image: gaobin2496/sshd
+    container_name: ssh
+    restart: always
+    ports:
+      - "2322:22"
+    volumes:
+      - /data/logs:/data/logs:ro
+
+networks:
+  mdnet:
+    driver: bridge

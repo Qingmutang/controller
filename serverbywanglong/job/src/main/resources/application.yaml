@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: #spring.profiles.active#
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  port: 8085
+power:
+  static:
+    img: http://static.modianli.com/portal/2017/05/image/1494918060205.jpg

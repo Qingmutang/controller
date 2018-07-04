@@ -1,0 +1,19 @@
+version: '3'
+services:
+  notifier:
+    image: md-notifier:latest
+    container_name: notifier
+    external_links:
+      - rabbit:rabbit
+    volumes:
+      - /data/logs:/data/logs
+    ports:
+      - "127.0.0.1:8081:8081"
+    restart: always
+    networks:
+      - server_mdnet
+
+
+networks:
+  server_mdnet:
+    external: true

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: instructor-scheduling-system
+  profiles:
+    active: dev
+
+info:
+  author: gaotengpeng,zhangpengpeng,japper
+  version: 1.0
+  comment: 成长保排课系统（讲师端2.0）
