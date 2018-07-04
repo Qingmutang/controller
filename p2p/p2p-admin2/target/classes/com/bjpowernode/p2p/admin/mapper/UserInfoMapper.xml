@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.p2p.admin.mapper.UserInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.bjpowernode.p2p.admin.model.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="staffId" jdbcType="INTEGER" property="staffid" />
+  </resultMap>
+  
+  <resultMap id="myBaseResultMap" type="com.bjpowernode.p2p.admin.model.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="staffId" jdbcType="INTEGER" property="staffid" />
+    <!-- 一对一 或者 多对一  -->
+    <association property="staffInfo" javaType="com.bjpowernode.p2p.admin.model.StaffInfo">
+	    <result column="phone" jdbcType="VARCHAR" property="phone" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="realName" jdbcType="VARCHAR" property="realname" />
+	    <result column="sex" jdbcType="INTEGER" property="sex" />
+	    <result column="staffNo" jdbcType="VARCHAR" property="staffno" />
+	    <result column="orgId" jdbcType="INTEGER" property="orgid" />
+	    <result column="jobTitle" jdbcType="VARCHAR" property="jobtitle" />
+	    <result column="hireDate" jdbcType="TIMESTAMP" property="hiredate" />
+    </association>
+    <association property="orgInfo" javaType="com.bjpowernode.p2p.admin.model.OrgInfo">
+    	<result column="orgName" jdbcType="VARCHAR" property="orgName" />
+    	<result column="pOrgName" jdbcType="VARCHAR" property="pOrgName" />
+    </association>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, username, password, lastLoginTime, staffId
+  </sql>
+  
+  <sql id="my_Base_Column_List">
+    u.id, u.username, u.password, u.lastLoginTime, u.staffId,
+	s.phone, s.email, s.realName, s.sex, s.staffNo, s.orgId, s.jobTitle, s.hireDate,
+	o.orgName,
+	po.orgName pOrgName
+  </sql>
+  
+  <!-- 根据用户名和密码查询用户信息（登录） -->
+  <select id="selectUserinfoByUserNameAndPassword" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_user_info
+    where username = #{userName, jdbcType=VARCHAR} and password = #{password, jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询用户的详细信息 -->
+  <select id="selectUserInfoDetail" parameterType="java.lang.Integer" resultMap="myBaseResultMap">
+    select 
+	<include refid="my_Base_Column_List" />
+	from u_user_info u 
+	left join u_staff_info s on u.staffId = s.id
+	left join u_org_info o on s.orgId = o.id 
+	left join u_org_info po on o.pid = po.id 
+	where u.id = #{userId, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 分页查询用户详细信息 -->
+  <select id="selectUserInfoDetailByPage" parameterType="java.util.Map" resultMap="myBaseResultMap">
+    select 
+	<include refid="my_Base_Column_List" />
+	from u_user_info u 
+	left join u_staff_info s on u.staffId = s.id
+	left join u_org_info o on s.orgId = o.id 
+	left join u_org_info po on o.pid = po.id 
+	limit #{startRow, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询符合分页条件的数据总条数 -->
+  <select id="selectUserInfoDetailByTotal" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select 
+	count(*)
+	from u_user_info u 
+	left join u_staff_info s on u.staffId = s.id
+	left join u_org_info o on s.orgId = o.id 
+	left join u_org_info po on o.pid = po.id 
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from u_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.bjpowernode.p2p.admin.model.UserInfo">
+    insert into u_user_info (id, username, password, 
+      lastLoginTime, staffId)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{lastlogintime,jdbcType=TIMESTAMP}, #{staffid,jdbcType=INTEGER})
+  </insert>
+  
+  <!-- 添加用户 -->
+  <insert id="insertSelective" parameterType="com.bjpowernode.p2p.admin.model.UserInfo">
+    insert into u_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime,
+      </if>
+      <if test="staffid != null">
+        staffId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="staffid != null">
+        #{staffid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新用户信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.bjpowernode.p2p.admin.model.UserInfo">
+    update u_user_info
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="staffid != null">
+        staffId = #{staffid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.bjpowernode.p2p.admin.model.UserInfo">
+    update u_user_info
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      staffId = #{staffid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

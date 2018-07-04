@@ -1,0 +1,28 @@
+package com.bjpowernode.p2p.admin.constants;
+
+/**
+ * 系统常量类
+ * 
+ * @author 
+ *
+ */
+public class Constants {
+	
+	public static final String OK = "0";
+	
+	public static final String ERROR = "1";
+
+	public static final String SESSION_USER_INFO = "login_user_info";
+	
+	public static final int DEFAULT_PAGE_SIZE = 10;
+	
+	/**API_KEY是第三方债权公司分配的*/
+	public static final String API_KEY = "43fbsdjk@sd1n$!bsdds";
+	
+	/**客户端的私钥*/
+	public static final String CLIENT_PRIVATE_KEY = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD2w2S9aT9n2b4bojWso027egxzsj5hP6kBrXpYsvhFjRSkRYV+HjtZG34nWFxYIr83IW7Qt//+Xs0jPoSRtKYsWWcrLwOejiB0U7yGnj9ZU29KSjT14L5SiPebK3irQxIOpIUAQWOOB7fzV6kv05Y64jLpv3ZrPK8qn5xVz9zy4ss+FGCstXAkVk6VD5gMt2y0BG1E90Zo5WLxPTSuoFZ3U9ZRKPtce3FCEBSj29nGJVJIdnJvonuNP9dg931sNPX9KiBcLi/0UPFP3Is1pWCTBctxIJ5UnXHHPBk2vx/3H+pMK8rS1GutPsEnXMa69N4/l1uhClvknMEY+fzOblqXAgMBAAECggEAKYXvqb/QH5WQW+4LwiUoq2d6OO3BeXPQ6KtcbxiOloWK96mLMRG9Qt1ReSVxRJN0Qb6qewy7Uv543nlirXIMlGHm7mlW3pNj+q8shiqS1mEn1QRvrQBIhnLt13qVL5x1qWkdyFE4g2nhFl2l5ppgKUBu+M5zCtCHWVDKadY0g9o5akXtz1Gozj2XD0nUHZ4uAhG4yhwSy8BsFiO+aqgl5QcynWFkYAK6DHvlUsbC09zxYxAnuMLzAVBZk2UY8OaLUze2vpvVFCdGq+Ghw8lowYkWnOkCc+aLZJiR+5eWCLstX64LGLtz75tPy+QYTI9TQDbz3hduxfuia6RnJ8wOYQKBgQD8zbAhJJkmTBSUSA/UwZmmC6vA9TrU9H8vjOSbOfMs6YheDL2aGGo3ZPYwjCXOqf5aUaXuGkFVOS4AdJ0qdb1/B6ZsgK4gnMF5aQNjwcmr2CkdTucS8IVg/Eoz9dQSWLQSecqELRKRtM2k9atdCv/b0KGRN4OYS5WhP6JSH1qSXQKBgQD54idVaphW2MIdiroK/W/Gd1NQY64HmsQsXlCCF/KylHR5LrD66FkMMpM1vhrA27dr2LGf49lm2zAiypWmfEgyTHLZsCuRzZIAsjFT5Z/NXGLaAeuPu+lIhoMPZ+FzkNYc1tm8mefQPhmnrh7iSkpBHvYRPGpUmozrH9irbA35gwKBgBsLWhNBmgypyO3QA7mL+Ib16qra0S9k9JI+rVoZyfT9CrSdAk+Q2xQP/fJVm9nO/8HjyC9/qYuXcV9lGkcnj10ekWQ8I+SjQGNfo5gxbASxPDzBayDwkCQ++SUz4DsSODldxBd9xuXFhNZn3aw3eAWo/Q/O84oAVAKLDy9f4U2VAoGARDZKCnUYtMxi4PGXq5xXQNQd+BndzdGfr4TncTvcUodX7CSkxzlZ5YyAxvDoGLFhtpzmkAEAvaUj1Lt8coAGrURVLbt7iUeWjX4XHRHXt5V6noxbo1bmbZfaewAeeQ+WgzTbJzLUJvJsymsrnxYsgu5SuY3GcOXnhd+ho9nRTsUCgYEAl0bCfqnE8LXoMT1IeBsTBUzmgpuIzwvvmJxTwESs0mVy0DSDV8x+Gz6VN3UDlnPzPytLyH1U1Y/vgHlN86/BYf0vz2hvh8PWNT7kVzKXcbn/Fpbvdg8wgrMkBVprE7oIhwRv48kpFJ506ybwTqL0eAR+VGYI7Ta7CvuxAoh0HK4=";
+	
+	/**服务端的公钥*/
+	public static final String SERVER_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAridVkKlcEZj/UVn77DduoqtbaP3g6ImXt+XqeVopukaso46INyM+Mtpld5y4Stngp4Ta0PJVQKG/Rib1sfb55TyfhW6cLCG/IfrppIJclFCnjNrlZSh9gfuK5sDvxuuamjsvgLex0xuDvBstWfBoJ9nl9hRNp3MDo+f810AoFBtWgOwqVKa32jL6eA+YO5UrcNlag+5QV2pPDlfeYI5rcWleLhbnqed/pOON5Ke5MB66uuFVFCf1hHgRoBK5/Vx2wDpEd085B95DtP6j/tVe42ERbUqXCN1nUveizdiSOYniAoLjZvN5QKRXJIJUaVmRXM4VIKQutoZ0FHU5zRiwXwIDAQAB";
+
+}

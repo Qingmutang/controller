@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.p2p.admin.mapper.SlideShowMapper">
+
+  <resultMap id="BaseResultMap" type="com.bjpowernode.p2p.admin.model.SlideShow">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="slide_title" jdbcType="VARCHAR" property="slideTitle" />
+    <result column="slide_url" jdbcType="VARCHAR" property="slideUrl" />
+    <result column="slide_image_url" jdbcType="VARCHAR" property="slideImageUrl" />
+    <result column="slide_start_time" jdbcType="TIMESTAMP" property="slideStartTime" />
+    <result column="slide_end_time" jdbcType="TIMESTAMP" property="slideEndTime" />
+    <result column="slide_status" jdbcType="INTEGER" property="slideStatus" />
+    <result column="slide_create_time" jdbcType="TIMESTAMP" property="slideCreateTime" />
+    <result column="slide_update_time" jdbcType="TIMESTAMP" property="slideUpdateTime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, slide_title, slide_url, slide_image_url, slide_start_time, slide_end_time, slide_status, 
+    slide_create_time, slide_update_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from b_slide_show
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getSlideShowByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from b_slide_show
+    limit #{currentPage, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+  </select>
+  
+  <select id="getSlideShowByTotal" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(*) from b_slide_show
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from b_slide_show
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.bjpowernode.p2p.admin.model.SlideShow">
+    insert into b_slide_show
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="slideTitle != null">
+        slide_title,
+      </if>
+      <if test="slideUrl != null">
+        slide_url,
+      </if>
+      <if test="slideImageUrl != null">
+        slide_image_url,
+      </if>
+      <if test="slideStartTime != null">
+        slide_start_time,
+      </if>
+      <if test="slideEndTime != null">
+        slide_end_time,
+      </if>
+      <if test="slideStatus != null">
+        slide_status,
+      </if>
+      <if test="slideCreateTime != null">
+        slide_create_time,
+      </if>
+      <if test="slideUpdateTime != null">
+        slide_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="slideTitle != null">
+        #{slideTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="slideUrl != null">
+        #{slideUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="slideImageUrl != null">
+        #{slideImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="slideStartTime != null">
+        #{slideStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slideEndTime != null">
+        #{slideEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slideStatus != null">
+        #{slideStatus,jdbcType=INTEGER},
+      </if>
+      <if test="slideCreateTime != null">
+        #{slideCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slideUpdateTime != null">
+        #{slideUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.bjpowernode.p2p.admin.model.SlideShow">
+    update b_slide_show
+    <set>
+      <if test="slideTitle != null">
+        slide_title = #{slideTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="slideUrl != null">
+        slide_url = #{slideUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="slideImageUrl != null">
+        slide_image_url = #{slideImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="slideStartTime != null">
+        slide_start_time = #{slideStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slideEndTime != null">
+        slide_end_time = #{slideEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slideStatus != null">
+        slide_status = #{slideStatus,jdbcType=INTEGER},
+      </if>
+      <if test="slideCreateTime != null">
+        slide_create_time = #{slideCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="slideUpdateTime != null">
+        slide_update_time = #{slideUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjpowernode.p2p.admin.mapper.StaffInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.bjpowernode.p2p.admin.model.StaffInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="realName" jdbcType="VARCHAR" property="realname" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="staffNo" jdbcType="VARCHAR" property="staffno" />
+    <result column="orgId" jdbcType="INTEGER" property="orgid" />
+    <result column="jobTitle" jdbcType="VARCHAR" property="jobtitle" />
+    <result column="hireDate" jdbcType="TIMESTAMP" property="hiredate" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, phone, email, realName, sex, staffNo, orgId, jobTitle, hireDate
+  </sql>
+  
+  <!-- 根据手机号的前几位搜索员工表中的手机号 -->
+  <select id="selectStaffPhone" parameterType="java.lang.String" resultType="java.util.Map">
+    select 
+    phone
+    from u_staff_info
+    where phone like concat ('%', #{startPhone, jdbcType=VARCHAR}, '%') limit 10
+  </select>
+  
+  <!-- 根据手机号查询员工信息 -->
+  <select id="selectStaffInfoByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_staff_info
+    where phone = #{phone, jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_staff_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from u_staff_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.bjpowernode.p2p.admin.model.StaffInfo">
+    insert into u_staff_info (id, phone, email, 
+      realName, sex, staffNo, 
+      orgId, jobTitle, hireDate
+      )
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{staffno,jdbcType=VARCHAR}, 
+      #{orgid,jdbcType=INTEGER}, #{jobtitle,jdbcType=VARCHAR}, #{hiredate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.bjpowernode.p2p.admin.model.StaffInfo">
+    insert into u_staff_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="realname != null">
+        realName,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="staffno != null">
+        staffNo,
+      </if>
+      <if test="orgid != null">
+        orgId,
+      </if>
+      <if test="jobtitle != null">
+        jobTitle,
+      </if>
+      <if test="hiredate != null">
+        hireDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="staffno != null">
+        #{staffno,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null">
+        #{orgid,jdbcType=INTEGER},
+      </if>
+      <if test="jobtitle != null">
+        #{jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hiredate != null">
+        #{hiredate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.bjpowernode.p2p.admin.model.StaffInfo">
+    update u_staff_info
+    <set>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="staffno != null">
+        staffNo = #{staffno,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null">
+        orgId = #{orgid,jdbcType=INTEGER},
+      </if>
+      <if test="jobtitle != null">
+        jobTitle = #{jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hiredate != null">
+        hireDate = #{hiredate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.bjpowernode.p2p.admin.model.StaffInfo">
+    update u_staff_info
+    set phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      staffNo = #{staffno,jdbcType=VARCHAR},
+      orgId = #{orgid,jdbcType=INTEGER},
+      jobTitle = #{jobtitle,jdbcType=VARCHAR},
+      hireDate = #{hiredate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

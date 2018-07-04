@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd "> 
+	
+	<!-- 导入配置文件 -->
+	<context:property-placeholder location="classpath*:redis.properties"/>
+	<!-- 扫描bean,给spring管理 -->
+	<context:component-scan base-package="com.bjpowernode.p2p.service" />
+	
+	<import resource="applicationContext-datasource.xml" />
+	
+	<import resource="applicationContext-redis.xml" />
+	
+	<import resource="applicationContext-dubbo-provider.xml" />
+	
+</beans>
